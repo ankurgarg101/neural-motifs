@@ -17,12 +17,12 @@ def stanford_path(fn):
 # =============================================================================
 # Update these with where your data is stored ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-VG_IMAGES = '/home/rowan/datasets2/VG_100K_2/VG_100K'
+VG_IMAGES = '/scratch/cluster/abhinav/gnlp/gqa_data/images/gqa/'
 RCNN_CHECKPOINT_FN = path('faster_rcnn_500k.h5')
 
-IM_DATA_FN = stanford_path('image_data.json')
-VG_SGG_FN = stanford_path('VG-SGG.h5')
-VG_SGG_DICT_FN = stanford_path('VG-SGG-dicts.json')
+IM_DATA_FN = "/scratch/cluster/ankgarg/gqa/vg_test_1p/img_metadata.json"
+VG_SGG_FN = "/scratch/cluster/ankgarg/gqa/vg_test_1p/VG.h5"
+VG_SGG_DICT_FN = "/scratch/cluster/ankgarg/gqa/vg_test_1p/VG-dicts.json"
 PROPOSAL_FN = stanford_path('proposals.h5')
 
 COCO_PATH = '/home/rowan/datasets/mscoco'
