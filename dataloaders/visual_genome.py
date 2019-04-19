@@ -257,7 +257,7 @@ def load_image_filenames(image_file, image_dir=VG_IMAGES):
         filename = os.path.join(image_dir, basename)
         if os.path.exists(filename):
             fns.append(filename)
-    assert len(fns) == 108073
+    #assert len(fns) == 108073
     return fns
 
 
@@ -283,7 +283,7 @@ def load_graphs(graphs_file, mode='train', num_im=-1, num_val_im=0, filter_empty
 
     roi_h5 = h5py.File(graphs_file, 'r')
     data_split = roi_h5['split'][:]
-    split = 2 if mode == 'test' else 0
+    split = 2 if mode == 'test' else (1 if mode == 'val' else 0)
     split_mask = data_split == split
 
     # Filter out images without bounding boxes
@@ -294,11 +294,12 @@ def load_graphs(graphs_file, mode='train', num_im=-1, num_val_im=0, filter_empty
     image_index = np.where(split_mask)[0]
     if num_im > -1:
         image_index = image_index[:num_im]
-    if num_val_im > 0:
-        if mode == 'val':
-            image_index = image_index[:num_val_im]
-        elif mode == 'train':
-            image_index = image_index[num_val_im:]
+    
+        # if num_val_im > 0:
+        #     if mode == 'val':
+        #         image_index = image_index[:num_val_im]
+        #     elif mode == 'train':
+        #         image_index = image_index[num_val_im:]
 
 
     split_mask = np.zeros_like(data_split).astype(bool)
