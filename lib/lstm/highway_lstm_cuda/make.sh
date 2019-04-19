@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CUDA_PATH=/usr/local/cuda/
+#CUDA_PATH=/usr/local/cuda/
 
 # Which CUDA capabilities do we want to pre-build for?
 # https://developer.nvidia.com/cuda-gpus
@@ -37,6 +37,6 @@ echo $CUDA_MODEL_TARGETS
 
 cd src
 echo "Compiling kernel"
-/usr/local/cuda/bin/nvcc -c -o highway_lstm_kernel.cu.o highway_lstm_kernel.cu --compiler-options -fPIC $CUDA_MODEL_TARGETS
+${CUDA_PATH}/bin/nvcc -c -o highway_lstm_kernel.cu.o highway_lstm_kernel.cu --compiler-options -fPIC $CUDA_MODEL_TARGETS
 cd ../
 python build.py

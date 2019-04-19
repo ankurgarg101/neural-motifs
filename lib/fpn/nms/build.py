@@ -15,6 +15,8 @@ if torch.cuda.is_available():
     defines += [('WITH_CUDA', None)]
     with_cuda = True
 
+extra_compile_args = ['-I/opt/cuda-9.0/include/']
+
 this_file = os.path.dirname(os.path.realpath(__file__))
 print(this_file)
 extra_objects = ['src/cuda/nms.cu.o']
@@ -27,7 +29,8 @@ ffi = create_extension(
     define_macros=defines,
     relative_to=__file__,
     with_cuda=with_cuda,
-    extra_objects=extra_objects
+    extra_objects=extra_objects,
+    extra_compile_args=extra_compile_args
 )
 
 if __name__ == '__main__':
