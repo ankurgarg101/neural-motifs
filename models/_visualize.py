@@ -236,7 +236,7 @@ def val_batch(batch_num, b, evaluator, thrs=(20, 50, 100)):
     id = '{}-{}'.format(val.filenames[batch_num].split('/')[-1][:-4], recall)
     pathname = os.path.join('qualitative', id)
     if not os.path.exists(pathname):
-        os.mkdir(pathname)
+        os.makedirs(pathname)
     theimg.save(os.path.join(pathname, 'img.jpg'), quality=100, subsampling=0)
     theimg2.save(os.path.join(pathname, 'imgbox.jpg'), quality=100, subsampling=0)
 
