@@ -5,6 +5,7 @@ __pycache__/
 
 data/
 motif/
+cache/
 # C extensions
 *.so
 

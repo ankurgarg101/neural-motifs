@@ -206,7 +206,7 @@ for epoch in range(start_epoch + 1, start_epoch + 1 + conf.num_epochs):
 		print("Saving model {:2d}: (bestmAp: {:.3f}, prev: {:.3f})".format(epoch, mAp, bestmAp))
 		bestmAp = mAp
 		if (not os.path.exists(conf.save_dir)):
-			os.mkdirs(conf.save_dir)
+			os.makedirs(conf.save_dir)
 		torch.save({
 			'epoch': epoch,
 			'best_valmAp': bestmAp,
