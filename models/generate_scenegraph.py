@@ -91,14 +91,21 @@ def val_batch(batch_num, b, factor, object_counter, pred_thresh=0.5, obj_thresh=
 	pred_class_i = pred_class_i[pred_filter1]
 	pred_class_score_i = pred_class_score_i[pred_filter1]
 
-	#Remove the relations of the removed objects
-	pred_filter2 = np.where(np.isin(rels_i[:,0], obj_filter) & np.isin(rels_i[:,1], obj_filter))[0]
+	#Remove the background relation
+	pred_filter2 = np.where(pred_class_i != 0)[0]
 	rels_i = rels_i[pred_filter2]
 	pred_scores_i = pred_scores_i[pred_filter2]
 	pred_class_i = pred_class_i[pred_filter2]
 	pred_class_score_i = pred_class_score_i[pred_filter2]
 
-	objects = {}
+	#Remove the relations of the removed objects
+	pred_filter3 = np.where(np.isin(rels_i[:,0], obj_filter) & np.isin(rels_i[:,1], obj_filter))[0]
+	rels_i = rels_i[pred_filter3]
+	pred_scores_i = pred_scores_i[pred_filter3]
+	pred_class_i = pred_class_i[pred_filter3]
+	pred_class_score_i = pred_class_score_i[pred_filter3]
+
+	objects = OrderedDict()
 	start_id = object_counter
 	obj_filter = list(obj_filter)
 	for i in range(len(obj_filter)):
