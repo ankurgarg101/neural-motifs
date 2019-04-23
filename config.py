@@ -82,6 +82,7 @@ class ModelConfig(object):
         self.refine = None
         self.ad3 = False
         self.test = False
+        self.val = False
         self.adam = False
         self.multi_pred=False
         self.cache = None
@@ -180,6 +181,7 @@ class ModelConfig(object):
         parser.add_argument('-gt_box', dest='gt_box', help='use gt boxes during training', action='store_true')
         parser.add_argument('-adam', dest='adam', help='use adam. Not recommended', action='store_true')
         parser.add_argument('-test', dest='test', help='test set', action='store_true')
+        parser.add_argument('-val', dest='val', help='val set', action='store_true')
         parser.add_argument('-multipred', dest='multi_pred', help='Allow multiple predicates per pair of box0, box1.', action='store_true')
         parser.add_argument('-nepoch', dest='num_epochs', help='Number of epochs to train the model for',type=int, default=25)
         parser.add_argument('-resnet', dest='use_resnet', help='use resnet instead of VGG', action='store_true')

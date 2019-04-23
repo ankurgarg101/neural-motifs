@@ -23,8 +23,17 @@ from collections import OrderedDict
 
 conf = ModelConfig()
 train, val, test = VG.splits(num_val_im=conf.val_size)
+
+set_name = ''
 if conf.test:
 	val = test
+	set_name = 'test'
+elif conf.val:
+	val = val
+	set_name = 'val'
+else:
+	val = train
+	set_name = 'train'
 
 train_loader, val_loader = VGDataLoader.splits(train, val, mode='rel',
 											   batch_size=conf.batch_size,
@@ -63,7 +72,7 @@ def val_epoch():
 		sg_dict[fn]['objects'], object_counter = val_batch(conf.num_gpus * val_b, batch, factor, object_counter)
 	return sg_dict
 
-def val_batch(batch_num, b, factor, object_counter, pred_thresh=0.5, obj_thresh=0.5):
+def val_batch(batch_num, b, factor, object_counter, pred_thresh=0.0, obj_thresh=0.0):
 	det_res = detector[b]
 	assert conf.num_gpus == 1
 	boxes_i, objs_i, obj_scores_i, rels_i, pred_scores_i = det_res
@@ -116,6 +125,7 @@ def val_batch(batch_num, b, factor, object_counter, pred_thresh=0.5, obj_thresh=
 		objects[obj_id]['y'] = int(boxes_i[i,1])
 		objects[obj_id]['w'] = int(boxes_i[i,2])
 		objects[obj_id]['h'] = int(boxes_i[i,3])
+		objects[obj_id]['confidence'] = obj_scores_i[i].item()
 		objects[obj_id]['attributes'] = []
 		objects[obj_id]['relations'] = []
 		#Filter relations of same object as subject
@@ -126,6 +136,7 @@ def val_batch(batch_num, b, factor, object_counter, pred_thresh=0.5, obj_thresh=
 			rel_dict = OrderedDict()
 			rel_dict['name'] = train.ind_to_predicates[pred_class_i[rel_id]]
 			rel_dict['object'] = str(start_id + obj)
+			rel_dict['confidence'] = pred_class_score_i[rel_id].item()
 			objects[obj_id]['relations'].append(rel_dict)
 		object_counter += 1
 	return objects, object_counter
@@ -136,6 +147,6 @@ pathname = 'qualitative_sg'
 if not os.path.exists(pathname):
 	os.makedirs(pathname)
 
-pathname = os.path.join(pathname,'sg_{}.json'.format(conf.mode))
+pathname = os.path.join(pathname,'sg_{}_{}.json'.format(set_name, conf.mode))
 with open(pathname,'w') as f:
 	json.dump(scenegraph, f)
