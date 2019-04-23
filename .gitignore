@@ -3,9 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+motif
 data/
 motif/
 cache/
+qualitative*/
+
 # C extensions
 *.so
 
