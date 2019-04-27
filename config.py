@@ -20,9 +20,9 @@ def stanford_path(fn):
 VG_IMAGES = '/scratch/cluster/abhinav/gnlp/gqa_data/images/gqa/'
 RCNN_CHECKPOINT_FN = path('faster_rcnn_500k.h5')
 
-IM_DATA_FN = "/scratch/cluster/ankgarg/gqa/vg_test_1p/img_metadata.json"
-VG_SGG_FN = "/scratch/cluster/ankgarg/gqa/vg_test_1p/VG.h5"
-VG_SGG_DICT_FN = "/scratch/cluster/ankgarg/gqa/vg_test_1p/VG-dicts.json"
+IM_DATA_FN = "/scratch/cluster/ankgarg/gqa/test_data/5p/vg_data/img_metadata.json"
+VG_SGG_FN = "/scratch/cluster/ankgarg/gqa/test_data/5p/vg_data/VG.h5"
+VG_SGG_DICT_FN = "/scratch/cluster/ankgarg/gqa/test_data/5p/vg_data/VG-dicts.json"
 PROPOSAL_FN = stanford_path('proposals.h5')
 
 COCO_PATH = '/home/rowan/datasets/mscoco'
