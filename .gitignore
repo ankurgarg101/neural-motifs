@@ -107,3 +107,6 @@ ENV/
 
 # Ignore .o files
 *.o
+
+# Ignore files in the data folder
+data/
